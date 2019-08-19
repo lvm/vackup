@@ -1,6 +1,6 @@
 # youtube-dl front end
 
-sort of.
+or _vackup_ (Video bACKUP)
 
 ## how to run
 
