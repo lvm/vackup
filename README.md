@@ -25,6 +25,22 @@ git clone https://github.com/lvm/vackup \
 
 Yes, you need to have docker (18.09+) and docker-compose (1.24+).
 
+## now what
+
+Once it's running, point your browser to `http://you-raspi.local:5000/` and submit a video, it'll start downloading soon.
+The UI is really basic (front-end is not my thing) but you'll see these two status:
+
+* 🙆‍ if the task was created fine (with a link to it)
+* 🙅‍ if the task failed
+
+
+## something's not working...
+
+* you can check what's going on here with your tasks here: `http://you-raspi.local:5555/`
+* or you can look at the logs by ssh-ing to your raspi and run `docker-compose logs -f $service`
+
+Note: `$service` represents one of the services listed in the `docker-compose.yml` file (`flask`, `queue`, `monitor`, `redis`)
+
 ## license
 
 yes.
