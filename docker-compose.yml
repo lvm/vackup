@@ -1,0 +1,55 @@
+version: "3"
+services:
+  flask:
+    build:
+      context: .
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    env_file:
+      - ./env
+    image: lvm-vackup
+    restart: unless-stopped
+    command: ./entrypoint.sh
+    volumes:
+      - ./download/:/download/
+      - .:/app/
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+  queue:
+    build:
+      context: .
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    image: lvm-vackup-q
+    env_file:
+      - ./env
+    volumes:
+      - ./download/:/download/
+    restart: unless-stopped
+    command: ./entrypoint_q.sh
+    depends_on:
+      - redis
+  monitor:
+    build:
+      context: .
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    image: lvm-vackup-mon
+    env_file:
+      - ./env
+    restart: unless-stopped
+    command: ./entrypoint_mon.sh
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+  redis:
+    image: "redis:5-alpine"
+    restart: unless-stopped
+    volumes:
+      - ./data/redis/:/data/
