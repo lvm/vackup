@@ -105,6 +105,7 @@
 
     form.addEventListener("submit", function(evt) {
 	evt.preventDefault();
+	fetchResult.innerHTML = "⏳";
 	do_POST('/api/download/',
 		{video: encodeURIComponent(inputVideo.value)});
     })
