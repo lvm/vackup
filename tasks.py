@@ -22,6 +22,7 @@ ytdl_opts = {
 
 @celery.task(name='tasks.download')
 def download(video_url: str) -> str:
+    youtube_dl.utils.std_headers['User-Agent'] = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
     with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
         ydl.download([video_url])
 
